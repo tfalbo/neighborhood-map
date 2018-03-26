@@ -20,18 +20,14 @@
   </head>
   <body>
     <div id="map"></div>
-    <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 20.91528, lng: -100.74389},
-          zoom: 18
-        });
-      }
-    </script>
+
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYLYtkd8Mpmtuws65gaCZsojMV2OHVp8U
     &callback=initMap"
     async defer></script>
-    <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="js/lib/knockout-3.4.2.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    
 </body>
 </html>
