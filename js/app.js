@@ -29,18 +29,36 @@ var locations = [
 var map;
 
 var Location = function(data){
+    var self = this;
 
+    // Info I already have
     this.name = ko.observable(data.name);
     this.lat = ko.observable(data.lat);
     this.lng = ko.observable(data.lng);
+
+    // Info I'll get from Yelp
+    this.url = "";
+    this.address = "";
+    this.phone = "";
+    this.review = "";
 
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(data.lat, data.lng),
         map: map,
         title: data.name
     });
-    
+
+    this.infoWindow = new google.maps.InfoWindow({content: self.contentString});
+
     this.marker.setMap(map);
+
+
+    this.marker.addListener('click', function(){
+		self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.name + "</b></div>";
+        self.infoWindow.setContent(self.contentString);
+		self.infoWindow.open(map, this);
+	});
+
 }
 
 function AppViewModel(){
@@ -55,7 +73,6 @@ function AppViewModel(){
 
     locations.forEach(function(locationItem){
         self.locationList.push(new Location(locationItem));
-        console.log(self.locationList());
     });
 }
 
