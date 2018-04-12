@@ -57,10 +57,10 @@ var Location = function(data){
         url: foursquareURL,
         data: data,
         success: function(data){
-           this.category = data.response.venues[0].categories[0].name;
-           this.address = data.response.venues[0].location.address;
-           this.phone = data.response.venues[0].contact.formattedPhone;
-           this.url = data.response.venues[0].url;
+           self.category = data.response.venues[0].categories[0].name;
+           self.address = data.response.venues[0].location.address;
+           self.phone = data.response.venues[0].contact.formattedPhone;
+           self.url = data.response.venues[0].url;
         }
       });
 
@@ -74,16 +74,14 @@ var Location = function(data){
 
     this.marker.setMap(map);
 
-    console.log(this.address);
-    var contentString = `<div class="info-window-content">
-                            <b>` + this.name + `</b>
-                            ` + this.category + `
-                            ` + this.address + `
-                            ` + this.phone + `
-                            ` + this.url + `
-                        </div>`;
     this.marker.addListener('click', function(){
-		self.contentString = contentString;
+		self.contentString = `<div class="info-window-content">
+                                <b>` + self.name + `</b><br />
+                                ` + self.category + `<br />
+                                ` + self.address + `<br />
+                                ` + self.phone + `<br />
+                                ` + self.url + `
+                            </div>`;
         self.infoWindow.setContent(self.contentString);
 		self.infoWindow.open(map, this);
 	});
