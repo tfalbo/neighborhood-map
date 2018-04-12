@@ -109,7 +109,11 @@ var Location = function(data){
                             </div>`;
         self.infoWindow.setContent(self.contentString);
 		self.infoWindow.open(map, this);
-	});
+    });
+    
+    this.bounce = function(place) {
+		google.maps.event.trigger(self.marker, 'click');
+	};
 
 }
 
