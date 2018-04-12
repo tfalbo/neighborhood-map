@@ -27,20 +27,42 @@ var locations = [
 ];
 
 var map;
+var client_id = "G34I3SSZUGBT3DENL1WWLIGAVEFCFZIC5REQO5ILS0EBCQ1V";
+var client_secret = "B3EKDYWCTTMIJRC0PSQN2IJYT5Y0VUT1OUWCLCTPRBTYWA3W";
 
 var Location = function(data){
     var self = this;
 
     // Info I already have
-    this.name = ko.observable(data.name);
-    this.lat = ko.observable(data.lat);
-    this.lng = ko.observable(data.lng);
+    this.name = data.name;
+    this.lat = data.lat;
+    this.lng = data.lng;
 
-    // Info I'll get from Yelp
-    this.url = "";
+    // Info I'll get from Foursquare
     this.address = "";
     this.phone = "";
-    this.review = "";
+    this.url = "";
+
+    var foursquareURL = 'https://api.foursquare.com/v2/venues/search?' +
+                        'll='+ this.lat + ',' + this.lng + 
+                        '&client_id=' + client_id + 
+                        '&client_secret=' + client_secret + 
+                        '&v=20180411' + 
+                        '&query=' + this.name +
+                        '&limit=1';
+
+    $.ajax({
+        type: "GET",
+        url: foursquareURL,
+        //data: data,
+        success: function(data){
+           console.log(data.response.venues[0]);
+           console.log(data.response.venues[0].categories[0].name);
+           console.log(data.response.venues[0].location.address);
+           console.log(data.response.venues[0].contact.formattedPhone);
+           console.log(data.response.venues[0].url);
+        }
+      });
 
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(data.lat, data.lng),
