@@ -57,12 +57,37 @@ var Location = function(data){
         url: foursquareURL,
         data: data,
         success: function(data){
-           self.category = data.response.venues[0].categories[0].name;
-           self.address = data.response.venues[0].location.address;
-           self.phone = data.response.venues[0].contact.formattedPhone;
-           self.url = data.response.venues[0].url;
+            if (typeof data.response.venues[0].categories[0].name === 'undefined'){
+                self.category = '';
+            }else{
+                self.category = data.response.venues[0].categories[0].name;;
+            }
+
+            if (typeof data.response.venues[0].location.address === 'undefined'){
+                self.address = '';
+            }else{
+                self.address = data.response.venues[0].location.address;
+            }
+
+            if (typeof data.response.venues[0].contact.formattedPhone === 'undefined'){
+                self.phone = '';
+            }else{
+                self.phone = data.response.venues[0].contact.formattedPhone;;
+            }
+
+            if (typeof data.response.venues[0].url === 'undefined'){
+                self.url = '';
+            }else{
+                self.url = data.response.venues[0].url;;
+            }
+           
+           
+           
+           
         }
       });
+
+
 
     this.marker = new google.maps.Marker({
         position: new google.maps.LatLng(this.lat, this.lng),
