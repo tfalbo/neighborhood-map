@@ -39,6 +39,7 @@ var Location = function(data){
     this.lng = data.lng;
 
     // Info I'll get from Foursquare
+    this.category = "";
     this.address = "";
     this.phone = "";
     this.url = "";
@@ -54,29 +55,35 @@ var Location = function(data){
     $.ajax({
         type: "GET",
         url: foursquareURL,
-        //data: data,
+        data: data,
         success: function(data){
-           console.log(data.response.venues[0]);
-           console.log(data.response.venues[0].categories[0].name);
-           console.log(data.response.venues[0].location.address);
-           console.log(data.response.venues[0].contact.formattedPhone);
-           console.log(data.response.venues[0].url);
+           this.category = data.response.venues[0].categories[0].name;
+           this.address = data.response.venues[0].location.address;
+           this.phone = data.response.venues[0].contact.formattedPhone;
+           this.url = data.response.venues[0].url;
         }
       });
 
     this.marker = new google.maps.Marker({
-        position: new google.maps.LatLng(data.lat, data.lng),
+        position: new google.maps.LatLng(this.lat, this.lng),
         map: map,
-        title: data.name
+        title: this.name
     });
 
     this.infoWindow = new google.maps.InfoWindow({content: self.contentString});
 
     this.marker.setMap(map);
 
-
+    console.log(this.address);
+    var contentString = `<div class="info-window-content">
+                            <b>` + this.name + `</b>
+                            ` + this.category + `
+                            ` + this.address + `
+                            ` + this.phone + `
+                            ` + this.url + `
+                        </div>`;
     this.marker.addListener('click', function(){
-		self.contentString = '<div class="info-window-content"><div class="title"><b>' + data.name + "</b></div>";
+		self.contentString = contentString;
         self.infoWindow.setContent(self.contentString);
 		self.infoWindow.open(map, this);
 	});
