@@ -130,6 +130,21 @@ function AppViewModel(){
     locations.forEach(function(locationItem){
         self.locationList.push(new Location(locationItem));
     });
+
+    // Menu Filter
+    this.query = ko.observable("")
+
+    this.filteredList = ko.computed( function() {
+		var filter = self.query().toLowerCase();
+		if (!filter) {
+			return self.locationList();
+		} else {
+			return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
+                return locationItem['name'].toLowerCase().indexOf(filter) !== -1;
+			});
+		}
+	}, self);
+
 }
 
 function initApp(){

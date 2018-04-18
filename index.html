@@ -25,9 +25,11 @@
           <div class="siimple-grid-col siimple-grid-col--3 siimple-grid-col-md--12">
               <div class="siimple-menu">
                   <div class="siimple-menu-group">LOCATIONS</div>
-                  <ul data-bind="foreach: locationList">
+                  <input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
+                  <ul data-bind="template: {name:'location', foreach: filteredList}"></ul>
+                    <script type="text/html" id="location">
                     <li><a class="siimple-menu-item" data-bind="text:name, click:bounce"></a></li>
-                  </ul>
+                    </script>  
                 </div>
           </div>
           <div class="siimple-grid-col siimple-grid-col--9 siimple-grid-col-md--12"><div id="map"></div></div>
