@@ -150,3 +150,7 @@ function AppViewModel(){
 function initApp(){
     ko.applyBindings(new AppViewModel());
 }
+
+function googleError(){
+    alert("Google Map could not be loaded.");
+  }
