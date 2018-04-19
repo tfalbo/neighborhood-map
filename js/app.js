@@ -139,10 +139,18 @@ function AppViewModel(){
     this.filteredList = ko.computed( function() {
 		var filter = self.query().toLowerCase();
 		if (!filter) {
+            self.locationList().forEach(function(locationItem){
+				locationItem.marker.setVisible(true);
+			});
 			return self.locationList();
 		} else {
 			return ko.utils.arrayFilter(self.locationList(), function(locationItem) {
-                return locationItem['name'].toLowerCase().indexOf(filter) !== -1;
+                // locationItem.marker.setVisible(true);
+                // return locationItem['name'].toLowerCase().indexOf(filter) !== -1;
+                var string = locationItem['name'].toLowerCase();
+				var result = (string.indexOf(filter) !== -1);
+				locationItem.marker.setVisible(result);
+				return result;
 			});
 		}
 	}, self);
