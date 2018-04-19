@@ -74,6 +74,9 @@ var Location = function(data){
         title: this.name
     });
 
+    
+
+
     this.infoWindow = new google.maps.InfoWindow({content: self.contentString});
 
     this.marker.setMap(map);
@@ -87,7 +90,9 @@ var Location = function(data){
                                 ` + self.url + `
                             </div>`;
         self.infoWindow.setContent(self.contentString);
-		self.infoWindow.open(map, this);
+        self.infoWindow.open(map, this);
+        self.marker.setAnimation(google.maps.Animation.BOUNCE);
+        self.marker.setTimeout(function(){ marker.setAnimation(null); }, 750);
     });
     
     this.bounce = function(place) {
