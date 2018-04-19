@@ -85,7 +85,9 @@ var Location = function(data){
            
            
         }
-      });
+      }).fail(function() {
+		alert("Foursquare data could not be loaded. Please, try reloading the page.");
+	});;
 
 
 
@@ -152,5 +154,5 @@ function initApp(){
 }
 
 function googleError(){
-    alert("Google Map could not be loaded.");
+    alert("Google Map could not be loaded. Please, try reloading the page.");
   }
