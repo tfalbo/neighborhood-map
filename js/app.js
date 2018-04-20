@@ -92,8 +92,7 @@ var Location = function(data){
         self.infoWindow.setContent(self.contentString);
         self.infoWindow.open(map, this);
         self.marker.setAnimation(google.maps.Animation.BOUNCE);
-        self.marker.setTimeout(function(){ marker.setAnimation(null); }, 750);
-    });
+        setTimeout(function(){ self.marker.setAnimation(null); }, 750);});
     
     this.bounce = function(place) {
 		google.maps.event.trigger(self.marker, 'click');
